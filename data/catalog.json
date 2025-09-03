@@ -1,0 +1,35 @@
+{
+  "parks": [
+    {"id":"appleton","name":"Altitude Appleton","city":"Appleton","state":"WI"},
+    {"id":"gastonia","name":"Altitude Gastonia","city":"Gastonia","state":"NC"},
+    {"id":"lombard","name":"Altitude Lombard","city":"Lombard","state":"IL"},
+    {"id":"pueblo","name":"Altitude Pueblo","city":"Pueblo","state":"CO"},
+    {"id":"sanjose","name":"Altitude San Jose","city":"San Jose","state":"CA"},
+    {"id":"york","name":"Altitude York","city":"York","state":"PA"}
+  ],
+  "styles": [
+    {"id":"sapphire","name":"Sapphire","sizes":["I","T","S","M","L","XL","XXL"]},
+    {"id":"bliss","name":"Bliss","sizes":["I","T","S","M","L","XL","XXL"]},
+    {"id":"onyx","name":"Onyx","sizes":["I","T","S","M","L","XL","XXL"]},
+    {"id":"leopard","name":"Leopard","sizes":["I","T","S","M","L","XL","XXL"]},
+    {"id":"tiger","name":"Tiger","sizes":["I","T","S","M","L","XL","XXL"]},
+    {"id":"blueblack","name":"Blue-Black","sizes":["I","T","S","M","L","XL","XXL"]},
+    {"id":"skyblue","name":"Skyblue","sizes":["T","S"]},
+    {"id":"purple","name":"Purple","sizes":["M"]},
+    {"id":"partybag","name":"Party Bag","sizes":["ONESIZE"]}
+  ],
+  "casePacks": {
+    "defaultMain": {"I":360,"T":240,"S":220,"M":200,"L":180,"XL":170,"XXL":170},
+    "byStyle": {
+      "sapphire": "defaultMain",
+      "bliss": "defaultMain",
+      "onyx": "defaultMain",
+      "leopard": "defaultMain",
+      "tiger": "defaultMain",
+      "blueblack": "defaultMain",
+      "skyblue": {"T":300,"S":300},
+      "purple": {"M":300},
+      "partybag": {"ONESIZE":100}
+    }
+  }
+}
