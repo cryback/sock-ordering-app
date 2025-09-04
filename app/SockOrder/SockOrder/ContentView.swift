@@ -30,7 +30,7 @@ struct Style: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let sizes: [SockSize]
-    let image: URL? // optional; add "image" in catalog.json to show a thumbnail
+    let image: URL?
 }
 
 struct Catalog: Codable {
@@ -39,7 +39,6 @@ struct Catalog: Codable {
     let casePacks: CasePacks
 
     struct CasePacks: Codable {
-        // String keys in JSON (e.g., "I","T","S"...)
         let defaultMain: [String:Int]
         let byStyle: [String: CasePackRef]
     }
@@ -56,19 +55,15 @@ struct Catalog: Codable {
 
         func resolve(in catalog: Catalog) -> [String:Int] {
             switch self {
-            case .alias(let s) where s == "defaultMain":
-                return catalog.casePacks.defaultMain
-            case .alias(_):
-                return catalog.casePacks.defaultMain // fallback
-            case .explicit(let m):
-                return m
+            case .alias(let s) where s == "defaultMain": return catalog.casePacks.defaultMain
+            case .alias: return catalog.casePacks.defaultMain
+            case .explicit(let m): return m
             }
         }
     }
 }
 
 struct Availability: Codable {
-    // styles[styleId]?[sizeRaw] -> Bool
     let styles: [String: [String: Bool]]
     func isAvailable(styleId: String, size: SockSize) -> Bool {
         styles[styleId]?[size.rawValue] ?? false
@@ -97,11 +92,8 @@ struct OrderPayload: Codable {
 
 @MainActor
 final class DataService: ObservableObject {
-    // Public raw GitHub JSON files:
     private let catalogURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/catalog.json")!
     private let availabilityURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/availability.json")!
-
-    // Replace with your n8n (or other) webhook URL:
     private let orderWebhook = URL(string: "https://YOUR-N8N-OR-CLOUD-WEBHOOK")!
 
     @Published var catalog: Catalog?
@@ -148,7 +140,7 @@ final class DataService: ObservableObject {
 @MainActor
 final class OrderVM: ObservableObject {
     @Published var selectedParkId: String = ""
-    @Published var quantities: [String: Int] = [:] // key: "styleId|sizeRaw"
+    @Published var quantities: [String: Int] = [:]
     @Published var notes: String = ""
 
     let svc: DataService
@@ -165,7 +157,7 @@ final class OrderVM: ObservableObject {
         guard let cat = svc.catalog else { return 0 }
         let sizeKey = size.rawValue
         if let ref = cat.casePacks.byStyle[style.id] {
-            let resolved = ref.resolve(in: cat) // [String:Int]
+            let resolved = ref.resolve(in: cat)
             return resolved[sizeKey] ?? 0
         } else {
             return cat.casePacks.defaultMain[sizeKey] ?? 0
@@ -191,7 +183,7 @@ final class OrderVM: ObservableObject {
     }
 }
 
-// MARK: - UI (ScrollView + LazyVStack)
+// MARK: - UI
 
 struct ContentView: View {
     @StateObject private var svc = DataService()
@@ -211,107 +203,84 @@ struct ContentView: View {
                 if loading {
                     ProgressView("Loading catalog…")
                 } else if let cat = svc.catalog {
-                    ScrollView {
-                        LazyVStack(spacing: 12) {
-
-                            // Debug header
-                            Text("Loaded parks: \(cat.parks.count), styles: \(cat.styles.count)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .padding(.top, 8)
-
-                            // Park picker
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("Park").font(.headline)
-                                Picker("Select park", selection: $vm.selectedParkId) {
-                                    ForEach(cat.parks) { p in
-                                        Text("\(p.name) (\(p.city), \(p.state))").tag(p.id)
-                                    }
+                    Form {
+                        // Park picker (city only)
+                        Section("Park") {
+                            Picker("Select city", selection: $vm.selectedParkId) {
+                                ForEach(cat.parks) { p in
+                                    Text(p.city).tag(p.id)
                                 }
-                                .pickerStyle(.menu)
                             }
-                            .padding(.horizontal)
+                            .pickerStyle(.menu)
+                        }
 
-                            // Styles
-                            ForEach(cat.styles, id: \.id) { style in
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack(alignment: .center, spacing: 12) {
-                                        if let url = style.image {
-                                            AsyncImage(url: url) { phase in
-                                                switch phase {
-                                                case .empty:
-                                                    ProgressView().frame(width: 64, height: 64)
-                                                case .success(let img):
-                                                    img.resizable()
-                                                        .scaledToFill()
-                                                        .frame(width: 64, height: 64)
-                                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                                                case .failure(_):
-                                                    ZStack {
-                                                        Color.gray.opacity(0.2)
-                                                        Text(style.name.prefix(1))
-                                                            .font(.headline)
-                                                    }
-                                                    .frame(width: 64, height: 64)
+                        // Styles and sizes
+                        ForEach(cat.styles, id: \.id) { style in
+                            Section {
+                                HStack(spacing: 12) {
+                                    if let url = style.image {
+                                        AsyncImage(url: url) { phase in
+                                            switch phase {
+                                            case .empty:
+                                                ProgressView().frame(width: 56, height: 56)
+                                            case .success(let img):
+                                                img.resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 56, height: 56)
                                                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                                                @unknown default:
-                                                    EmptyView()
+                                            case .failure(_):
+                                                ZStack {
+                                                    Color.gray.opacity(0.2)
+                                                    Text(style.name.prefix(1)).font(.headline)
                                                 }
+                                                .frame(width: 56, height: 56)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                            @unknown default:
+                                                EmptyView()
                                             }
                                         }
+                                    }
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(style.name).font(.headline)
+                                    }
+                                    Spacer()
+                                }
 
+                                ForEach(style.sizes, id: \.rawValue) { size in
+                                    let key = vm.lineKey(styleId: style.id, size: size)
+                                    let disabled = vm.isDisabled(styleId: style.id, size: size)
+                                    let ppc = vm.pairsPerCase(style: style, size: size)
+
+                                    HStack {
                                         VStack(alignment: .leading, spacing: 2) {
-                                            Text(style.name).font(.headline)
-                                            Text("id: \(style.id)").font(.caption2).foregroundStyle(.tertiary)
+                                            Text(size.label)
+                                            Text("\(ppc) pairs/case")
+                                                .font(.caption)
+                                                .foregroundStyle(.secondary)
                                         }
                                         Spacer()
-                                    }
-
-                                    ForEach(style.sizes, id: \.rawValue) { size in
-                                        let key = vm.lineKey(styleId: style.id, size: size)
-                                        let disabled = vm.isDisabled(styleId: style.id, size: size)
-                                        let ppc = vm.pairsPerCase(style: style, size: size)
-
-                                        HStack {
-                                            VStack(alignment: .leading, spacing: 2) {
-                                                Text(size.label)
-                                                Text("\(ppc) pairs/case")
-                                                    .font(.caption)
-                                                    .foregroundStyle(.secondary)
-                                                Text("avail: \(disabled ? "no" : "yes") size: \(size.rawValue)")
-                                                    .font(.caption2)
-                                                    .foregroundStyle(.tertiary)
-                                            }
-                                            Spacer()
-                                            Stepper(value: Binding(
-                                                get: { vm.quantities[key] ?? 0 },
-                                                set: { vm.quantities[key] = max(0, $0) }
-                                            ), in: 0...999) {
-                                                Text("\(vm.quantities[key] ?? 0) cases")
-                                            }
-                                            .disabled(disabled || ppc == 0)
+                                        Stepper(value: Binding(
+                                            get: { vm.quantities[key] ?? 0 },
+                                            set: { vm.quantities[key] = max(0, $0) }
+                                        ), in: 0...999) {
+                                            Text("\(vm.quantities[key] ?? 0) cases")
                                         }
-                                        .opacity((disabled || ppc == 0) ? 0.4 : 1.0)
+                                        .disabled(disabled || ppc == 0)
                                     }
+                                    .opacity((disabled || ppc == 0) ? 0.4 : 1.0)
                                 }
-                                .padding(.horizontal)
-                                .padding(.vertical, 8)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color(.secondarySystemBackground))
-                                )
-                                .padding(.horizontal)
+                            } header: {
+                                Text(style.name)
                             }
+                        }
 
-                            // Notes
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("Notes (optional)").font(.headline)
-                                TextField("Anything Ops should know?", text: $vm.notes, axis: .vertical)
-                                    .textFieldStyle(.roundedBorder)
-                            }
-                            .padding(.horizontal)
+                        // Notes
+                        Section("Notes (optional)") {
+                            TextField("Anything Ops should know?", text: $vm.notes, axis: .vertical)
+                        }
 
-                            // Submit
+                        // Submit
+                        Section {
                             Button {
                                 Task {
                                     guard let payload = vm.buildOrder() else {
@@ -320,7 +289,8 @@ struct ContentView: View {
                                     }
                                     do {
                                         try await svc.submitOrder(payload)
-                                        alert = "Order submitted. Total \(payload.totalPairs) pairs."
+                                        // 👇 Confirmation mentions city
+                                        alert = "Order submitted for \(payload.park.city). Total \(payload.totalPairs) pairs."
                                         vm.quantities.removeAll()
                                         vm.notes = ""
                                     } catch {
@@ -329,11 +299,9 @@ struct ContentView: View {
                                 }
                             } label: {
                                 Text("Submit Order")
-                                    .frame(maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity, alignment: .center)
                             }
                             .buttonStyle(.borderedProminent)
-                            .padding(.horizontal)
-                            .padding(.bottom, 24)
                             .disabled(vm.buildOrder() == nil)
                         }
                     }
