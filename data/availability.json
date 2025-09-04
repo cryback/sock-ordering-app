@@ -1,14 +1,69 @@
 {
-  "updatedAt": "2025-09-03",
+  "updatedAt": "2025-09-04T05:50:58Z",
   "styles": {
-    "sapphire": {"I": true, "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true},
-    "bliss":    {"I": true, "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true},
-    "onyx":     {"I": true, "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true},
-    "leopard":  {"I": true, "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true},
-    "tiger":    {"I": true, "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true},
-    "blueblack":{"I": true, "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true},
-    "skyblue":  {"T": true, "S": true},
-    "purple":   {"M": true},
-    "partybag": {"ONESIZE": true}
+    "sapphire": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "bliss": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "onyx": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "leopard": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "tiger": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "blueblack": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "skyblue": {
+      "T": true,
+      "S": true
+    },
+    "purple": {
+      "M": true
+    },
+    "partybag": {
+      "ONESIZE": true
+    }
   }
 }
