@@ -12,55 +12,55 @@
       "id": "sapphire",
       "name": "Sapphire",
       "sizes": ["I","T","S","M","L","XL","XXL"],
-      "image": "https://alma-fit.com/cdn/shop/products/sapphire.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/0005_001.webp?v=1740329673&width=1000"
     },
     {
       "id": "bliss",
       "name": "Bliss",
       "sizes": ["I","T","S","M","L","XL","XXL"],
-      "image": "https://alma-fit.com/cdn/shop/products/bliss.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/0004_031.jpg?v=1740419025&width=1000"
     },
     {
       "id": "onyx",
       "name": "Onyx",
       "sizes": ["I","T","S","M","L","XL","XXL"],
-      "image": "https://alma-fit.com/cdn/shop/products/onyx.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/onyx_0003_049.webp?v=1740415077&width=1000"
     },
     {
       "id": "leopard",
       "name": "Leopard",
       "sizes": ["I","T","S","M","L","XL","XXL"],
-      "image": "https://alma-fit.com/cdn/shop/products/leopard.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/leopard_0000_078.webp?v=1740416013&width=1000"
     },
     {
       "id": "tiger",
       "name": "Tiger",
       "sizes": ["I","T","S","M","L","XL","XXL"],
-      "image": "https://alma-fit.com/cdn/shop/products/tiger.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/tiger_0001_091.webp?v=1740419864&width=1000"
     },
     {
       "id": "blueblack",
       "name": "Blue-Black",
       "sizes": ["I","T","S","M","L","XL","XXL"],
-      "image": "https://alma-fit.com/cdn/shop/products/blueblack.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/0002_064.jpg?v=1740419450&width=1000"
     },
     {
       "id": "skyblue",
       "name": "Skyblue",
       "sizes": ["T","S"],
-      "image": "https://alma-fit.com/cdn/shop/products/skyblue.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/interim.jpg?v=1755198492&width=1000"
     },
     {
       "id": "purple",
       "name": "Purple",
       "sizes": ["M"],
-      "image": "https://alma-fit.com/cdn/shop/products/purple.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/interim2.jpg?v=1756283501&width=1000"
     },
     {
       "id": "partybag",
       "name": "Party Bag",
       "sizes": ["ONESIZE"],
-      "image": "https://alma-fit.com/cdn/shop/products/partybag.jpg"
+      "image": "https://alma-fit.com/cdn/shop/files/jumper-glo-bag-main-1.webp?v=1740493281&width=1000"
     }
   ],
   "casePacks": {
