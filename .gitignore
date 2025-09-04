@@ -1,16 +1,42 @@
 # macOS
 .DS_Store
 
-# Xcode / Swift
-DerivedData/
-build/
+# Swift Package Manager
+/.build/
+/.swiftpm/
+Package.resolved
+
+# Xcode
+*.xcscmblueprint
+*.xccheckout
+*.xcuserstate
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
-*.xcuserdatad
-*.xcuserstate
-*.xcscmblueprint
+xcuserdata/
+DerivedData/
+*.moved-aside
+*.hmap
+*.ipa
 
-# SwiftPM
-.swiftpm/xcode/xcuserdata/
-.swiftpm/cache/
-Package.resolved
+# CocoaPods (if you ever add it)
+Pods/
+!Podfile
+!Podfile.lock
+
+# Carthage (if you ever add it)
+Carthage/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# SwiftGen / Sourcery / etc. (generated files)
+/Generated/
+
+# Build artifacts
+build/
+*.o
+*.dSYM
+
