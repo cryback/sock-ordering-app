@@ -30,9 +30,7 @@ struct Style: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let sizes: [SockSize]
-    // OPTIONAL: add this to your catalog.json to show an image for the style
-    // e.g., "image": "https://.../sapphire.jpg"
-    let image: URL?
+    let image: URL? // optional; add "image" in catalog.json to show a thumbnail
 }
 
 struct Catalog: Codable {
@@ -51,13 +49,9 @@ struct Catalog: Codable {
         case explicit([String:Int])
 
         init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            if let s = try? container.decode(String.self) {
-                self = .alias(s)
-            } else {
-                let m = try container.decode([String:Int].self)
-                self = .explicit(m)
-            }
+            let c = try decoder.singleValueContainer()
+            if let s = try? c.decode(String.self) { self = .alias(s) }
+            else { self = .explicit(try c.decode([String:Int].self)) }
         }
 
         func resolve(in catalog: Catalog) -> [String:Int] {
@@ -76,7 +70,6 @@ struct Catalog: Codable {
 struct Availability: Codable {
     // styles[styleId]?[sizeRaw] -> Bool
     let styles: [String: [String: Bool]]
-
     func isAvailable(styleId: String, size: SockSize) -> Bool {
         styles[styleId]?[size.rawValue] ?? false
     }
@@ -104,11 +97,11 @@ struct OrderPayload: Codable {
 
 @MainActor
 final class DataService: ObservableObject {
-    // Your public raw GitHub files:
+    // Public raw GitHub JSON files:
     private let catalogURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/catalog.json")!
     private let availabilityURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/availability.json")!
 
-    // TODO: replace with your n8n (or other) webhook
+    // Replace with your n8n (or other) webhook URL:
     private let orderWebhook = URL(string: "https://YOUR-N8N-OR-CLOUD-WEBHOOK")!
 
     @Published var catalog: Catalog?
@@ -134,9 +127,7 @@ final class DataService: ObservableObject {
 
     private func fetch<T: Decodable>(_ url: URL) async throws -> T {
         let (data, resp) = try await URLSession.shared.data(from: url)
-        guard let http = resp as? HTTPURLResponse else {
-            throw URLError(.badServerResponse)
-        }
+        guard let http = resp as? HTTPURLResponse else { throw URLError(.badServerResponse) }
         guard (200..<300).contains(http.statusCode) else {
             let body = String(data: data, encoding: .utf8) ?? "<no body>"
             throw NSError(domain: "HTTP", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey:
@@ -200,7 +191,7 @@ final class OrderVM: ObservableObject {
     }
 }
 
-// MARK: - UI (single scrollable List)
+// MARK: - UI (ScrollView + LazyVStack)
 
 struct ContentView: View {
     @StateObject private var svc = DataService()
@@ -220,104 +211,107 @@ struct ContentView: View {
                 if loading {
                     ProgressView("Loading catalog…")
                 } else if let cat = svc.catalog {
-                    List {
-                        // Debug: confirm how many styles loaded
-                        Section {
+                    ScrollView {
+                        LazyVStack(spacing: 12) {
+
+                            // Debug header
                             Text("Loaded parks: \(cat.parks.count), styles: \(cat.styles.count)")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                        }
+                                .padding(.top, 8)
 
-                        // Park picker
-                        Section("Park") {
-                            Picker("Select park", selection: $vm.selectedParkId) {
-                                ForEach(cat.parks) { p in
-                                    Text("\(p.name) (\(p.city), \(p.state))").tag(p.id)
+                            // Park picker
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Park").font(.headline)
+                                Picker("Select park", selection: $vm.selectedParkId) {
+                                    ForEach(cat.parks) { p in
+                                        Text("\(p.name) (\(p.city), \(p.state))").tag(p.id)
+                                    }
                                 }
+                                .pickerStyle(.menu)
                             }
-                            .pickerStyle(.menu)
-                        }
+                            .padding(.horizontal)
 
-                        // Styles
-                        ForEach(cat.styles, id: \.id) { style in
-                            Section {
-                                HStack(alignment: .center, spacing: 12) {
-                                    // Optional image
-                                    if let url = style.image {
-                                        AsyncImage(url: url) { phase in
-                                            switch phase {
-                                            case .empty:
-                                                ProgressView()
-                                                    .frame(width: 64, height: 64)
-                                            case .success(let img):
-                                                img
-                                                    .resizable()
-                                                    .scaledToFill()
+                            // Styles
+                            ForEach(cat.styles, id: \.id) { style in
+                                VStack(alignment: .leading, spacing: 10) {
+                                    HStack(alignment: .center, spacing: 12) {
+                                        if let url = style.image {
+                                            AsyncImage(url: url) { phase in
+                                                switch phase {
+                                                case .empty:
+                                                    ProgressView().frame(width: 64, height: 64)
+                                                case .success(let img):
+                                                    img.resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 64, height: 64)
+                                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                case .failure(_):
+                                                    ZStack {
+                                                        Color.gray.opacity(0.2)
+                                                        Text(style.name.prefix(1))
+                                                            .font(.headline)
+                                                    }
                                                     .frame(width: 64, height: 64)
                                                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                                            case .failure(_):
-                                                ZStack {
-                                                    Color.gray.opacity(0.2)
-                                                    Text(style.name.prefix(1))
-                                                        .font(.headline)
+                                                @unknown default:
+                                                    EmptyView()
                                                 }
-                                                .frame(width: 64, height: 64)
-                                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                            @unknown default:
-                                                EmptyView()
                                             }
                                         }
-                                    }
 
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(style.name).font(.headline)
-                                        // Tiny helper so you can see IDs while we debug
-                                        Text("id: \(style.id)").font(.caption2).foregroundStyle(.tertiary)
-                                    }
-                                    Spacer()
-                                }
-                                .padding(.vertical, 4)
-
-                                // Sizes with steppers
-                                ForEach(style.sizes, id: \.rawValue) { size in
-                                    let key = vm.lineKey(styleId: style.id, size: size)
-                                    let disabled = vm.isDisabled(styleId: style.id, size: size)
-                                    let ppc = vm.pairsPerCase(style: style, size: size)
-
-                                    HStack {
                                         VStack(alignment: .leading, spacing: 2) {
-                                            Text(size.label)
-                                            Text("\(ppc) pairs/case")
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
-                                            // Debug: see if app considers it available
-                                            Text("avail: \(disabled ? "no" : "yes") size: \(size.rawValue)")
-                                                .font(.caption2)
-                                                .foregroundStyle(.tertiary)
+                                            Text(style.name).font(.headline)
+                                            Text("id: \(style.id)").font(.caption2).foregroundStyle(.tertiary)
                                         }
                                         Spacer()
-                                        Stepper(value: Binding(
-                                            get: { vm.quantities[key] ?? 0 },
-                                            set: { vm.quantities[key] = max(0, $0) }
-                                        ), in: 0...999) {
-                                            Text("\(vm.quantities[key] ?? 0) cases")
-                                        }
-                                        .disabled(disabled || ppc == 0)
                                     }
-                                    .opacity((disabled || ppc == 0) ? 0.4 : 1.0)
+
+                                    ForEach(style.sizes, id: \.rawValue) { size in
+                                        let key = vm.lineKey(styleId: style.id, size: size)
+                                        let disabled = vm.isDisabled(styleId: style.id, size: size)
+                                        let ppc = vm.pairsPerCase(style: style, size: size)
+
+                                        HStack {
+                                            VStack(alignment: .leading, spacing: 2) {
+                                                Text(size.label)
+                                                Text("\(ppc) pairs/case")
+                                                    .font(.caption)
+                                                    .foregroundStyle(.secondary)
+                                                Text("avail: \(disabled ? "no" : "yes") size: \(size.rawValue)")
+                                                    .font(.caption2)
+                                                    .foregroundStyle(.tertiary)
+                                            }
+                                            Spacer()
+                                            Stepper(value: Binding(
+                                                get: { vm.quantities[key] ?? 0 },
+                                                set: { vm.quantities[key] = max(0, $0) }
+                                            ), in: 0...999) {
+                                                Text("\(vm.quantities[key] ?? 0) cases")
+                                            }
+                                            .disabled(disabled || ppc == 0)
+                                        }
+                                        .opacity((disabled || ppc == 0) ? 0.4 : 1.0)
+                                    }
                                 }
-                            } header: {
-                                Text(style.name)
+                                .padding(.horizontal)
+                                .padding(.vertical, 8)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color(.secondarySystemBackground))
+                                )
+                                .padding(.horizontal)
                             }
-                        }
 
-                        // Notes
-                        Section("Notes (optional)") {
-                            TextField("Anything Ops should know?", text: $vm.notes, axis: .vertical)
-                        }
+                            // Notes
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Notes (optional)").font(.headline)
+                                TextField("Anything Ops should know?", text: $vm.notes, axis: .vertical)
+                                    .textFieldStyle(.roundedBorder)
+                            }
+                            .padding(.horizontal)
 
-                        // Submit
-                        Section {
+                            // Submit
                             Button {
                                 Task {
                                     guard let payload = vm.buildOrder() else {
@@ -335,13 +329,14 @@ struct ContentView: View {
                                 }
                             } label: {
                                 Text("Submit Order")
-                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .frame(maxWidth: .infinity)
                             }
                             .buttonStyle(.borderedProminent)
+                            .padding(.horizontal)
+                            .padding(.bottom, 24)
                             .disabled(vm.buildOrder() == nil)
                         }
                     }
-                    .listStyle(.insetGrouped)
                 } else {
                     Text("Failed to load catalog.")
                         .foregroundStyle(.red)
