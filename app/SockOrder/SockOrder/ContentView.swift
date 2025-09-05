@@ -32,9 +32,9 @@ final class CatalogService: ObservableObject {
     @Published var loading = true
     @Published var error: String?
 
-    // Update these URLs if your repo/branch changes
-    private let catalogURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/catalog.json")!
-    private let availabilityURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/availability.json")!
+    // bump ?v= if you update the JSON and need to bust cache
+    private let catalogURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/catalog.json?v=3")!
+    private let availabilityURL = URL(string: "https://raw.githubusercontent.com/cryback/sock-ordering-app/main/data/availability.json?v=3")!
 
     func load() {
         Task {
@@ -56,7 +56,7 @@ final class CatalogService: ObservableObject {
 
     private func fetch<T: Decodable>(_ url: URL) async throws -> T {
         var req = URLRequest(url: url)
-        req.cachePolicy = .reloadIgnoringLocalCacheData          // <- bust cache
+        req.cachePolicy = .reloadIgnoringLocalCacheData
         req.setValue("no-cache", forHTTPHeaderField: "Cache-Control")
         let (data, resp) = try await URLSession.shared.data(for: req)
         guard let http = resp as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
@@ -65,7 +65,6 @@ final class CatalogService: ObservableObject {
         return try JSONDecoder().decode(T.self, from: data)
     }
 
-    /// Availability lookup; DEFAULT = false (blocked) if not found
     func isAvailable(styleID: String, size: String) -> Bool {
         availability[styleID]?[size] ?? false
     }
@@ -76,40 +75,42 @@ final class CatalogService: ObservableObject {
 struct ContentView: View {
     @StateObject private var svc = CatalogService()
 
-    @State private var selectedPark: Park?
+    @State private var selectedPark: Park? // user selection (may be nil)
     @State private var note: String = ""
-    @State private var selectedQuantities: [String: [String: Int]] = [:] // styleID -> size -> qty
+    @State private var selectedQuantities: [String: [String: Int]] = [:]
+
+    @State private var submitting = false
+    @State private var submitAlert: (title: String, message: String)? = nil
+
+    // Your Google Apps Script webhook URL
+    private let ORDER_WEBHOOK_URL = URL(string: "https://script.google.com/macros/s/AKfycbwztVhKL5etGDowbQAKkR2cIRyxGUD0e0v_qPUMh5TQgM86MJVMxBFexlQ89I21HqMM/exec")!
+
+    // Resolves to user's selection OR the first park when available
+    private var resolvedPark: Park? {
+        selectedPark ?? svc.catalog?.parks.first
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    // Custom centered header with spacing above "Select Park"
-                    VStack(spacing: 6) {
-                        Text("AMG Sock Orders")
-                            .font(.system(size: 34, weight: .heavy, design: .rounded))
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(maxWidth: .infinity)
+                    // Custom header
+                    Text("AMG Sock Orders")
+                        .font(.system(size: 34, weight: .heavy, design: .rounded))
+                        .multilineTextAlignment(.center)
 
                     Group {
                         if svc.loading {
                             ProgressView("Loading catalog…")
-                                .frame(maxWidth: .infinity, alignment: .center)
                         } else if let cat = svc.catalog {
-                            // Select Park
                             parkPicker(cat)
-                                .padding(.top, 4)
 
-                            // Styles
                             VStack(spacing: 16) {
                                 ForEach(cat.styles) { style in
                                     styleCard(style)
                                 }
                             }
-                            .padding(.top, 4)
 
-                            // Notes + Submit
                             noteField
                             submitButton
                         } else {
@@ -126,19 +127,18 @@ struct ContentView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 12)
+                .padding()
             }
-            .background(Color(UIColor.systemBackground))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .principal) { EmptyView() } } // hide default title
-            .onAppear { if svc.catalog == nil { svc.load() } }
+            .toolbar { ToolbarItem(placement: .principal) { EmptyView() } }
+            .onAppear {
+                if svc.catalog == nil { svc.load() }
+            }
         }
     }
 
     // MARK: - Subviews
 
-    @ViewBuilder
     private func parkPicker(_ cat: Catalog) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("Select Park")
@@ -146,7 +146,7 @@ struct ContentView: View {
                 .foregroundColor(.secondary)
 
             Picker("Select Park", selection: Binding(
-                get: { selectedPark ?? cat.parks.first },
+                get: { resolvedPark },   // shows first park by default
                 set: { selectedPark = $0 }
             )) {
                 ForEach(cat.parks) { park in
@@ -154,7 +154,6 @@ struct ContentView: View {
                 }
             }
             .pickerStyle(.menu)
-            .tint(.accentColor)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
             .background(.ultraThinMaterial)
@@ -162,45 +161,34 @@ struct ContentView: View {
         }
     }
 
-    @ViewBuilder
     private func styleCard(_ style: SockStyle) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .center, spacing: 12) {
+            HStack(spacing: 12) {
                 AsyncImage(url: URL(string: style.image)) { phase in
                     switch phase {
                     case .empty:
-                        ProgressView()
-                            .frame(width: 72, height: 72)
+                        ProgressView().frame(width: 72, height: 72)
                     case .success(let img):
-                        img.resizable()
-                            .scaledToFill()
-                            .frame(width: 72, height: 72)
-                            .clipped()
-                            .cornerRadius(8)
+                        img.resizable().scaledToFill()
+                            .frame(width: 72, height: 72).clipped().cornerRadius(8)
                     case .failure(_):
                         ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.gray.opacity(0.15))
+                            RoundedRectangle(cornerRadius: 8).fill(Color.gray.opacity(0.15))
                             Image(systemName: "photo")
-                                .imageScale(.large)
-                                .foregroundColor(.secondary)
-                        }
-                        .frame(width: 72, height: 72)
+                        }.frame(width: 72, height: 72)
                     @unknown default:
                         EmptyView()
                     }
                 }
 
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading) {
                     Text(style.name).font(.title3).fontWeight(.bold)
                     Text("Select sizes & quantities")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .font(.subheadline).foregroundColor(.secondary)
                 }
                 Spacer()
             }
 
-            // Adaptive grid of neat, self-sized pills
             let columns = [GridItem(.adaptive(minimum: 130), spacing: 10)]
             LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
                 ForEach(style.sizes, id: \.self) { size in
@@ -211,59 +199,55 @@ struct ContentView: View {
                         quantity: selectedQuantities[style.id]?[size] ?? 0,
                         available: available,
                         onMinus: {
-                            guard available else { return } // hard block
+                            guard available else { return }
                             let current = selectedQuantities[style.id]?[size] ?? 0
                             setQty(styleID: style.id, size: size, max(0, current - 1))
                         },
                         onPlus: {
-                            guard available else { return } // hard block
+                            guard available else { return }
                             let current = selectedQuantities[style.id]?[size] ?? 0
                             setQty(styleID: style.id, size: size, current + 1)
                         }
                     )
-                    .opacity(available ? 1.0 : 0.4)
-                    .disabled(!available) // UI disable
                 }
             }
         }
         .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(UIColor.secondarySystemBackground))
-        )
+        .background(RoundedRectangle(cornerRadius: 16).fill(Color(UIColor.secondarySystemBackground)))
     }
 
-    @ViewBuilder
     private var noteField: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("Notes (optional)")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+                .font(.subheadline).foregroundColor(.secondary)
             TextField("Add any special instructions…", text: $note, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
         }
     }
 
-    @ViewBuilder
     private var submitButton: some View {
-        Button {
-            let order = buildOrderPayload()
-            print("ORDER:", order) // TODO: hook up webhook
-        } label: {
-            Text("Submit Order")
-                .frame(maxWidth: .infinity)
+        Button { submitOrder() } label: {
+            if submitting {
+                ProgressView().padding(.vertical, 6)
+            } else {
+                Text("Submit Order").frame(maxWidth: .infinity)
+            }
         }
         .buttonStyle(.borderedProminent)
-        .disabled(!canSubmit)
+        .disabled(!canSubmit || submitting)
         .padding(.bottom, 8)
+        .alert(item: Binding(
+            get: { submitAlert.map { AlertItem(title: $0.title, message: $0.message) } },
+            set: { _ in submitAlert = nil }
+        )) { item in
+            Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("OK")))
+        }
     }
 
     // MARK: - Helpers
 
     private func setQty(styleID: String, size: String, _ qty: Int) {
-        // Do not allow changes for unavailable sizes
         guard svc.isAvailable(styleID: styleID, size: size) else { return }
-
         var styleMap = selectedQuantities[styleID] ?? [:]
         if qty == 0 {
             styleMap.removeValue(forKey: size)
@@ -274,8 +258,8 @@ struct ContentView: View {
     }
 
     private var canSubmit: Bool {
-        guard selectedPark != nil else { return false }
-        // Must have at least one nonzero qty AND all lines must be available
+        // must have a park (resolved) and at least one available line with qty > 0
+        guard resolvedPark != nil else { return false }
         return selectedQuantities.contains { styleID, sizes in
             sizes.contains { size, qty in qty > 0 && svc.isAvailable(styleID: styleID, size: size) }
         }
@@ -292,23 +276,57 @@ struct ContentView: View {
         var lines: [[String: Any]] = []
         for (styleID, sizes) in selectedQuantities {
             for (size, qty) in sizes where qty > 0 && svc.isAvailable(styleID: styleID, size: size) {
-                lines.append([
-                    "styleID": styleID,
-                    "size": size,
-                    "cases": qty
-                ])
+                lines.append(["styleID": styleID, "size": size, "cases": qty])
             }
         }
         return [
-            "park": selectedPark?.name ?? "",
+            "park": resolvedPark?.name ?? "",
             "note": note,
             "lines": lines,
             "timestamp": ISO8601DateFormatter().string(from: .now)
         ]
     }
+
+    private func submitOrder() {
+        let order = buildOrderPayload()
+        guard (order["lines"] as? [[String: Any]])?.isEmpty == false else {
+            submitAlert = ("Nothing to submit", "Please add at least one size/case.")
+            return
+        }
+        submitting = true
+        Task {
+            do {
+                var req = URLRequest(url: ORDER_WEBHOOK_URL)
+                req.httpMethod = "POST"
+                req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                req.cachePolicy = .reloadIgnoringLocalCacheData
+                req.httpBody = try JSONSerialization.data(withJSONObject: order)
+
+                let (_, resp) = try await URLSession.shared.data(for: req)
+                guard let http = resp as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+                    throw URLError(.badServerResponse)
+                }
+
+                // Success
+                submitting = false
+                selectedQuantities.removeAll()
+                note = ""
+                submitAlert = ("Order Submitted", "We received your order and emailed a copy.")
+            } catch {
+                submitting = false
+                submitAlert = ("Submit failed", "Please try again later.")
+            }
+        }
+    }
 }
 
-// MARK: - Reusable Size Pill (with "Unavailable" cue)
+private struct AlertItem: Identifiable {
+    let id = UUID()
+    let title: String
+    let message: String
+}
+
+// MARK: - Size Pill (with Unavailable cue)
 
 private struct SizePill: View {
     let label: String
@@ -319,23 +337,20 @@ private struct SizePill: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            Text(label)
-                .font(.subheadline).bold()
+            Text(label).font(.subheadline).bold()
 
             Button(action: onMinus) {
-                Image(systemName: "minus.circle.fill")
-                    .font(.title3)
+                Image(systemName: "minus.circle.fill").font(.title3)
             }
             .buttonStyle(.plain)
             .disabled(!available || quantity == 0)
 
             Text("\(quantity)")
                 .font(.subheadline).monospacedDigit()
-                .frame(minWidth: 18, alignment: .center)
+                .frame(minWidth: 18)
 
             Button(action: onPlus) {
-                Image(systemName: "plus.circle.fill")
-                    .font(.title3)
+                Image(systemName: "plus.circle.fill").font(.title3)
             }
             .buttonStyle(.plain)
             .disabled(!available)
@@ -343,9 +358,7 @@ private struct SizePill: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .background(
-            Capsule().fill(available
-                           ? Color.accentColor.opacity(0.12)
-                           : Color.gray.opacity(0.15))
+            Capsule().fill(available ? Color.accentColor.opacity(0.12) : Color.gray.opacity(0.15))
         )
         .overlay(
             Capsule().strokeBorder(
@@ -365,15 +378,5 @@ private struct SizePill: View {
             }
         }
         .opacity(available ? 1.0 : 0.4)
-        .fixedSize(horizontal: true, vertical: false) // keeps pills compact
-    }
-}
-
-// MARK: - Preview
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environment(\.sizeCategory, .large)
     }
 }
