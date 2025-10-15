@@ -57,6 +57,18 @@
       "image": "https://alma-fit.com/cdn/shop/files/interim2.jpg?v=1756283501&width=1000"
     },
     {
+      "id": "blaze",
+      "name": "Blaze",
+      "sizes": ["M"],
+      "image": "https://alma-fit.com/cdn/shop/files/MIKC9255.webp?v=1758052172&width=1080"
+    },
+    {
+      "id": "pulse",
+      "name": "Pulse",
+      "sizes": ["M"],
+      "image": "https://alma-fit.com/cdn/shop/files/MIKC9270.webp?v=1758052636&width=1080"
+    },
+    {
       "id": "partybag",
       "name": "Party Bag",
       "sizes": ["ONESIZE"],
@@ -82,6 +94,8 @@
       "blueblack": "defaultMain",
       "skyblue": {"T": 300, "S": 300},
       "purple": {"M": 300},
+      "blaze": "defaultMain",
+      "pulse": "defaultMain",
       "partybag": {"ONESIZE": 100}
     }
   }
