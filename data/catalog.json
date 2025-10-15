@@ -89,13 +89,13 @@
       "sapphire": "defaultMain",
       "bliss": "defaultMain",
       "onyx": "defaultMain",
+      "blaze": "defaultMain",
+      "pulse": "defaultMain",
       "leopard": "defaultMain",
       "tiger": "defaultMain",
       "blueblack": "defaultMain",
       "skyblue": {"T": 300, "S": 300},
       "purple": {"M": 300},
-      "blaze": "defaultMain",
-      "pulse": "defaultMain",
       "partybag": {"ONESIZE": 100}
     }
   }
