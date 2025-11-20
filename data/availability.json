@@ -3,12 +3,12 @@
   "styles": {
     "sapphire": { "I": true, "T": true, "S": true, "M": true, "L": true, "XL": false, "XXL": false },
     "bliss":    { "I": true, "T": true,  "S": true,  "M": true,  "L": true, "XL": false, "XXL": false },
-    "onyx":     { "I": true, "T": true,  "S": true,  "M": true,  "L": true, "XL": true, "XXL": true },
-    "blaze":	{ "I": false, "T": true,  "S": true,  "M": true,  "L": true, "XL": false, "XXL": false },
-    "pulse":	{ "I": true, "T": true,  "S": false,  "M": true,  "L": true, "XL": false, "XXL": false },
+    "onyx":     { "I": true, "T": true,  "S": true,  "M": true,  "L": true, "XL": false, "XXL": false },
+    "blaze":	{ "I": false, "T": true,  "S": false,  "M": true,  "L": true, "XL": false, "XXL": false },
+    "pulse":	{ "I": true, "T": true,  "S": false,  "M": false,  "L": true, "XL": false, "XXL": false },
     "leopard":  { "I": false, "T": true,  "S": false,  "M": true,  "L": true, "XL": true, "XXL": false },
     "tiger":    { "I": false, "T": false,  "S": false,  "M": true,  "L": true, "XL": true, "XXL": false },
-    "blueblack":{ "I": true, "T": false,  "S": false,  "M": false,  "L": false, "XL": false, "XXL": false },
+    "blueblack":{ "I": false, "T": false,  "S": false,  "M": false,  "L": false, "XL": false, "XXL": false },
     "skyblue":  { "T": true, "S": true },
     "purple":   { "M": false },
     "partybag": { "ONESIZE": true }
