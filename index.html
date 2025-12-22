@@ -27,7 +27,19 @@
     <div class="container">
         <h1 class="text-center mb-4">Altitude — GM Sock Ordering</h1>
         
-        <!-- Park Selector -->
+        <!-- Centered Required Name & Email -->
+        <div class="row mb-4 justify-content-center">
+            <div class="col-md-4">
+                <label for="user-name" class="form-label fw-bold text-center d-block">Your Name (required)</label>
+                <input type="text" class="form-control" id="user-name" placeholder="John Doe" required>
+            </div>
+            <div class="col-md-4">
+                <label for="user-email" class="form-label fw-bold text-center d-block">Your Email (required)</label>
+                <input type="email" class="form-control" id="user-email" placeholder="john@altitude.com" required>
+            </div>
+        </div>
+
+        <!-- Park Selector (centered) -->
         <div class="row mb-4">
             <div class="col-md-6 mx-auto">
                 <label for="park-select" class="form-label fw-bold">Select Your Park (required)</label>
@@ -40,18 +52,6 @@
                     <option value="San Jose">San Jose</option>
                     <option value="York">York</option>
                 </select>
-            </div>
-        </div>
-
-        <!-- Optional Name & Email -->
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <label for="user-name" class="form-label">Your Name (optional)</label>
-                <input type="text" class="form-control" id="user-name" placeholder="John Doe">
-            </div>
-            <div class="col-md-4">
-                <label for="user-email" class="form-label">Your Email (optional)</label>
-                <input type="email" class="form-control" id="user-email" placeholder="john@altitude.com">
             </div>
         </div>
         
@@ -524,6 +524,8 @@
         const styleCards = document.querySelectorAll('.style-card');
         const inputs = document.querySelectorAll('.size-input');
         const parkSelect = document.getElementById('park-select');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
         const totalPairsEl = document.getElementById('total-pairs');
         const stylesCountEl = document.getElementById('styles-count');
         const orderTextEl = document.getElementById('order-text');
@@ -596,6 +598,16 @@
                 alert('Please select a park first!');
                 return;
             }
+            if (!userName.value.trim()) {
+                alert('Please enter your name.');
+                userName.focus();
+                return;
+            }
+            if (!userEmail.value.trim()) {
+                alert('Please enter your email.');
+                userEmail.focus();
+                return;
+            }
             if (totalPairsEl.textContent == '0') {
                 alert('Please enter at least one quantity before submitting.');
                 return;
@@ -603,8 +615,8 @@
 
             const templateParams = {
                 park: parkSelect.value,
-                from_name: document.getElementById('user-name').value || 'Anonymous',
-                reply_to: document.getElementById('user-email').value || 'no-reply@altitude.com',
+                from_name: userName.value.trim(),
+                reply_to: userEmail.value.trim(),
                 order_text: orderTextEl.textContent,
                 date: new Date().toLocaleString()
             };
