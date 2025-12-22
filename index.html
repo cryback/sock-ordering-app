@@ -1,1053 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Altitude — GM Sock Ordering</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #020617;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --border: #1f2937;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --danger: #f97373;
-      --radius-lg: 18px;
-      --radius-sm: 10px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #1e293b, #020617 55%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .app-shell {
-      width: 100%;
-      max-width: 1200px;
-      margin: auto;
-      background: radial-gradient(circle at top left, #020617, #020617 65%);
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow:
-        0 24px 60px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-      padding: 18px 18px 22px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    header.app-header {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .title-block h1 {
-      font-size: 1.2rem;
-      margin: 0;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .title-pill {
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .title-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.75rem;
-    }
-
-    label {
-      color: var(--text-muted);
-      font-size: 0.75rem;
-    }
-
-    select,
-    button {
-      font: inherit;
-    }
-
-    select {
-      background: #020617;
-      color: var(--text-main);
-      border-radius: 999px;
-      padding: 4px 10px;
-      border: 1px solid var(--border);
-      min-width: 190px;
-      outline: none;
-    }
-
-    select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
-    }
-
-    .pill-info {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .pill-info strong {
-      color: var(--accent);
-    }
-
-    button {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top left, #0b1120, #020617 70%);
-      color: var(--text-main);
-      padding: 4px 12px;
-      cursor: pointer;
-      font-size: 0.75rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    button:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
-    }
-
-    button.secondary {
-      background: transparent;
-      border-style: dashed;
-    }
-
-    main {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.3fr);
-      gap: 14px;
-    }
-
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(15, 23, 42, 0.9);
-      padding: 10px 12px 12px 12px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        circle at top left,
-        rgba(56, 189, 248, 0.12),
-        transparent 60%
-      );
-      mix-blend-mode: screen;
-      opacity: 0.55;
-      pointer-events: none;
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 10px;
-    }
-
-    .card-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .card-subtitle {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .badge-soft {
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .badge-soft strong {
-      color: var(--accent);
-    }
-
-    .table-wrapper {
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(30, 64, 175, 0.7);
-      background: radial-gradient(circle at top left, #020617, #000 73%);
-      overflow: auto;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      min-width: 720px;
-      font-size: 0.75rem;
-    }
-
-    thead {
-      background: rgba(15, 23, 42, 0.95);
-      box-shadow: 0 1px 0 0 rgba(30, 64, 175, 0.9);
-    }
-
-    th,
-    td {
-      padding: 6px 8px;
-      border-bottom: 1px solid rgba(30, 64, 175, 0.4);
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    th {
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    th:first-child,
-    td:first-child {
-      text-align: left;
-    }
-
-    th.style-col {
-      min-width: 120px;
-    }
-
-    td.style-name {
-      font-weight: 500;
-    }
-
-    td.image-cell {
-      position: relative;
-      padding: 4px;
-      min-width: 70px;
-    }
-
-    td.image-cell img {
-      width: 48px;
-      height: 48px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      display: block;
-      margin: 0 auto;
-    }
-
-    td.image-cell small {
-      display: block;
-      margin-top: 2px;
-      font-size: 0.6rem;
-      color: var(--text-muted);
-    }
-
-    th.size-col,
-    td.size-col {
-      min-width: 70px;
-    }
-
-    th.total-col,
-    td.total-col {
-      min-width: 80px;
-    }
-
-    input[type="number"] {
-      width: 60px;
-      padding: 2px 4px;
-      border-radius: 8px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-main);
-      text-align: center;
-      font-size: 0.75rem;
-      outline: none;
-    }
-
-    input[type="number"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
-    }
-
-    .case-note {
-      margin-top: 2px;
-      font-size: 0.6rem;
-      color: var(--text-muted);
-    }
-
-    .case-note strong {
-      color: var(--accent);
-    }
-
-    /* Stock-on-hand pills */
-    .stock-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 1px 6px;
-      border-radius: 999px;
-      font-size: 0.6rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      margin-left: 4px;
-    }
-
-    .stock-ok {
-      color: #bbf7d0;
-      border-color: rgba(34, 197, 94, 0.7);
-      background: rgba(22, 163, 74, 0.2);
-    }
-
-    .stock-none {
-      color: #fecaca;
-      border-color: rgba(248, 113, 113, 0.9);
-      background: rgba(127, 29, 29, 0.3);
-    }
-
-    tr:nth-child(even) td {
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    tr:hover td {
-      background: rgba(30, 64, 175, 0.25);
-    }
-
-    td.disabled {
-      opacity: 0.25;
-      font-size: 0.65rem;
-    }
-
-    td.style-total {
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .summary-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .summary-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .summary-kpis {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .kpi {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 0.7rem;
-      display: inline-flex;
-      gap: 6px;
-      align-items: baseline;
-    }
-
-    .kpi span.label {
-      color: var(--text-muted);
-    }
-
-    .kpi span.value {
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .order-text-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 160px;
-      resize: vertical;
-      border-radius: 10px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-main);
-      font-size: 0.75rem;
-      padding: 8px;
-      font-family: ui-monospace, Menlo, Monaco, "SF Mono", Consolas,
-        "Liberation Mono", "Courier New", monospace;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
-    }
-
-    .order-helper {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .order-helper code {
-      font-family: ui-monospace, Menlo, Monaco, "SF Mono", Consolas,
-        "Liberation Mono", "Courier New", monospace;
-      font-size: 0.7rem;
-      background: rgba(15, 23, 42, 0.8);
-      padding: 1px 4px;
-      border-radius: 6px;
-      border: 1px solid rgba(31, 41, 55, 0.9);
-    }
-
-    .copy-status {
-      font-size: 0.7rem;
-      color: var(--accent);
-      min-height: 1em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altitude — GM Sock Ordering</title>
+    
+    <!-- Bootstrap CSS for nice styling and mobile support -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body { padding: 20px; background-color: #f8f9fa; }
+        .style-card { margin-bottom: 30px; }
+        .size-input { width: 100px; text-align: center; }
+        .total-badge { font-size: 1.2rem; }
+        .order-summary { white-space: pre-wrap; font-family: monospace; }
+    </style>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="app-header">
-      <div class="title-block">
-        <h1>
-          Altitude Socks
-          <span class="title-pill">GM Ordering Sheet</span>
-        </h1>
-        <div class="title-sub">
-          Type your pairs by size. We’ll total everything and format an order
-          you can paste into email or your vendor portal.
-        </div>
-      </div>
+    <div class="container">
+        <h1 class="text-center mb-4">Altitude — GM Sock Ordering</h1>
+        <p class="text-center lead mb-5">Select your park/style, enter quantities by size, and submit or copy your order.</p>
 
-      <div class="controls">
-        <div class="field-group">
-          <label for="parkSelect">Park location</label>
-          <select id="parkSelect">
-            <option value="">Select your park…</option>
-          </select>
-          <div class="pill-info" id="availabilityStamp"></div>
-        </div>
-
-        <div class="field-group">
-          <label>&nbsp;</label>
-          <button id="clearAllBtn" class="secondary" type="button">
-            ⟲ Clear all quantities
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <!-- LEFT: TABLE -->
-      <section class="card">
-        <div class="card-inner">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Styles & Sizes</div>
-              <div class="card-subtitle">
-                Only currently available sizes are editable. Case-pack hints
-                and stock-on-hand show under each editable size.
-              </div>
+        <!-- Example Style Section - Duplicate this card for each style/park if you have multiple -->
+        <div class="card style-card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Lombard – Sapphire</h3> <!-- Change this to your style/park name -->
             </div>
-            <div class="badge-soft">
-              Sizes: <strong>I, T, S, M, L, XL, XXL, ONESIZE</strong>
-            </div>
-          </div>
-
-          <div class="table-wrapper">
-            <table id="sockTable">
-              <thead>
-                <tr id="tableHeaderRow"></tr>
-              </thead>
-              <tbody id="tableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- RIGHT: SUMMARY / ORDER TEXT -->
-      <section class="card">
-        <div class="card-inner">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Order Summary</div>
-              <div class="card-subtitle">
-                Live totals and a copy-ready order line-up for the selected
-                park.
-              </div>
-            </div>
-          </div>
-
-          <div class="summary-grid">
-            <div class="summary-row">
-              <div class="summary-kpis">
-                <div class="kpi">
-                  <span class="label">Total pairs</span>
-                  <span class="value" id="totalPairs">0</span>
+            <div class="card-body">
+                <div class="row text-center mb-3">
+                    <!-- Add sock image here if you have one -->
+                    <!-- <img src="images/sapphire.jpg" alt="Sapphire Socks" class="img-fluid rounded mb-3" style="max-height: 200px;"> -->
+                    
+                    <p><strong>Type pairs by size (only available sizes shown):</strong></p>
                 </div>
-                <div class="kpi">
-                  <span class="label">Styles with qty &gt; 0</span>
-                  <span class="value" id="stylesWithQty">0</span>
+                
+                <div class="row g-3 justify-content-center">
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">I</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="I">
+                        <small class="text-muted">Case: 40</small>
+                    </div>
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">T</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="T">
+                        <small class="text-muted">Case: 40</small>
+                    </div>
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">S</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="S">
+                        <small class="text-muted">Case: 40</small>
+                    </div>
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">M</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="M">
+                        <small class="text-muted">Case: 40</small>
+                    </div>
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">L</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="L">
+                        <small class="text-muted">Case: 40</small>
+                    </div>
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">XL</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="XL">
+                        <small class="text-muted">Case: 40</small>
+                    </div>
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">XXL</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="XXL">
+                        <small class="text-muted">Case: 40</small>
+                    </div>
+                    <div class="col-4 col-sm-3 col-md-2">
+                        <label class="form-label fw-bold">ONESIZE</label>
+                        <input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE">
+                        <small class="text-muted">Case: varies</small>
+                    </div>
                 </div>
-              </div>
             </div>
-
-            <div class="order-text-wrap">
-              <div class="order-helper">
-                We format orders like:
-                <code>Altitude Lombard – Sapphire: I x 120 (3 cases of 40), M x 80 (2 cases of 40)</code>
-              </div>
-              <textarea id="orderText" spellcheck="false"></textarea>
-              <div class="summary-row">
-                <button id="copyBtn" type="button">📋 Copy order text</button>
-                <div class="copy-status" id="copyStatus"></div>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
-    </main>
-  </div>
 
-  <script>
-    // -----------------------------
-    // 1. DATA (from your /data folder)
-    // -----------------------------
+        <!-- Totals Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Order Summary</h3>
+            </div>
+            <div class="card-body">
+                <p>Total pairs: <span class="badge bg-light text-dark total-badge" id="total-pairs">0</span></p>
+                <p>Styles with qty > 0: <span class="badge bg-light text-dark total-badge" id="styles-count">0</span></p>
+                
+                <pre class="order-summary bg-light p-3 rounded" id="order-text">Your order will appear here...</pre>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-warning me-md-2" id="clear-btn">⟲ Clear all quantities</button>
+                    <button class="btn btn-primary" id="copy-btn">📋 Copy order text</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    const CATALOG = {
-      "parks": [
-        {
-          "id": "appleton",
-          "name": "Altitude Appleton",
-          "city": "Appleton",
-          "state": "WI"
-        },
-        {
-          "id": "gastonia",
-          "name": "Altitude Gastonia",
-          "city": "Gastonia",
-          "state": "NC"
-        },
-        {
-          "id": "lombard",
-          "name": "Altitude Lombard",
-          "city": "Lombard",
-          "state": "IL"
-        },
-        {
-          "id": "pueblo",
-          "name": "Altitude Pueblo",
-          "city": "Pueblo",
-          "state": "CO"
-        },
-        {
-          "id": "sanjose",
-          "name": "Altitude San Jose",
-          "city": "San Jose",
-          "state": "CA"
-        },
-        {
-          "id": "york",
-          "name": "Altitude York",
-          "city": "York",
-          "state": "PA"
-        }
-      ],
-      "styles": [
-        {
-          "id": "sapphire",
-          "name": "Sapphire",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/0005_001.webp?v=1740329673&width=1000"
-        },
-        {
-          "id": "bliss",
-          "name": "Bliss",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/0004_031.jpg?v=1740419025&width=1000"
-        },
-        {
-          "id": "onyx",
-          "name": "Onyx",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/onyx_0003_049.webp?v=1740415077&width=1000"
-        },
-        {
-          "id": "blaze",
-          "name": "Blaze",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/MIKC9255.webp?v=1758052172&width=1080"
-        },
-        {
-          "id": "pulse",
-          "name": "Pulse",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/MIKC9270.webp?v=1758052636&width=1080"
-        },
-        {
-          "id": "leopard",
-          "name": "Leopard",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/leopard_0000_078.webp?v=1740416013&width=1000"
-        },
-        {
-          "id": "tiger",
-          "name": "Tiger",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/tiger_0001_091.webp?v=1740419864&width=1000"
-        },
-        {
-          "id": "blueblack",
-          "name": "Blue-Black",
-          "sizes": ["I","T","S","M","L","XL","XXL"],
-          "image": "https://alma-fit.com/cdn/shop/files/0002_064.jpg?v=1740419450&width=1000"
-        },
-        {
-          "id": "skyblue",
-          "name": "Skyblue",
-          "sizes": ["T","S"],
-          "image": "https://alma-fit.com/cdn/shop/files/interim.jpg?v=1755198492&width=1000"
-        },
-        {
-          "id": "purple",
-          "name": "Purple",
-          "sizes": ["M"],
-          "image": "https://alma-fit.com/cdn/shop/files/interim2.jpg?v=1756283501&width=1000"
-        },
-        {
-          "id": "partybag",
-          "name": "Party Bag",
-          "sizes": ["ONESIZE"],
-          "image": "https://alma-fit.com/cdn/shop/files/jumper-glo-bag-main-1.webp?v=1740493281&width=1000"
-        }
-      ],
-      "casePacks": {
-        "defaultMain": {
-          "I": 360,
-          "T": 240,
-          "S": 220,
-          "M": 200,
-          "L": 180,
-          "XL": 170,
-          "XXL": 170
-        },
-        "byStyle": {
-          "sapphire": "defaultMain",
-          "bliss": "defaultMain",
-          "onyx": "defaultMain",
-          "blaze": "defaultMain",
-          "pulse": "defaultMain",
-          "leopard": "defaultMain",
-          "tiger": "defaultMain",
-          "blueblack": "defaultMain",
-          "skyblue": { "T": 300, "S": 300 },
-          "purple": { "M": 300 },
-          "partybag": { "ONESIZE": 100 }
-        }
-      }
-    };
+    <!-- Bootstrap JS and your calculation script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const inputs = document.querySelectorAll('.size-input');
+        const totalPairsEl = document.getElementById('total-pairs');
+        const stylesCountEl = document.getElementById('styles-count');
+        const orderTextEl = document.getElementById('order-text');
+        const styleName = "Lombard – Sapphire"; // Change this to match your style
 
-    const AVAILABILITY = {
-      "updatedAt": "2025-10-15T00:00:00Z",
-      "styles": {
-        "sapphire": { "I": true, "T": true, "S": true, "M": true, "L": true, "XL": false, "XXL": false },
-        "bliss":    { "I": true, "T": true, "S": true, "M": true, "L": true, "XL": false, "XXL": false },
-        "onyx":     { "I": true, "T": true, "S": true, "M": true, "L": true, "XL": false, "XXL": false },
-        "blaze":    { "I": false,"T": true, "S": false,"M": true, "L": true, "XL": false, "XXL": false },
-        "pulse":    { "I": true, "T": true, "S": false,"M": false,"L": true, "XL": false, "XXL": false },
-        "leopard":  { "I": false,"T": true, "S": false,"M": true, "L": true, "XL": true,  "XXL": false },
-        "tiger":    { "I": false,"T": false,"S": false,"M": true, "L": true, "XL": true,  "XXL": false },
-        "blueblack":{ "I": false,"T": false,"S": false,"M": false,"L": false,"XL": false, "XXL": false },
-        "skyblue":  { "T": true, "S": true },
-        "purple":   { "M": false },
-        "partybag": { "ONESIZE": true }
-      }
-    };
+        function updateSummary() {
+            let total = 0;
+            let hasQty = false;
+            let lines = [];
 
-    // Stock on hand (true/false) per style/size
-    const STOCK_ON_HAND = {
-      "sapphire": { "I": true,  "T": false,"S": false,"M": false,"L": true, "XL": true, "XXL": true },
-      "bliss":    { "I": false, "T": false,"S": false,"M": false,"L": false,"XL": true, "XXL": false },
-      "onyx":     { "I": false, "T": false,"S": false,"M": false,"L": true, "XL": true, "XXL": true },
-      "leopard":  { "I": false, "T": false,"S": false,"M": false,"L": true, "XL": true, "XXL": true },
-      "tiger":    { "I": true,  "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true },
-      "blueblack":{ "I": true,  "T": false,"S": false,"M": false,"L": false,"XL": false,"XXL": true },
-      "skyblue":  { "T": true, "S": true },
-      "purple":   { "M": true },
-      "partybag": { "ONESIZE": true }
-    };
-
-    const SIZE_ORDER = ["I", "T", "S", "M", "L", "XL", "XXL", "ONESIZE"];
-
-    const STYLE_MAP = {};
-    CATALOG.styles.forEach(s => { STYLE_MAP[s.id] = s; });
-
-    const PARK_MAP = {};
-    CATALOG.parks.forEach(p => { PARK_MAP[p.id] = p; });
-
-    function getCasePack(styleId, sizeCode) {
-      const byStyle = CATALOG.casePacks.byStyle || {};
-      const spec = byStyle[styleId];
-      if (!spec) return null;
-
-      let packDef = null;
-      if (typeof spec === "string") {
-        packDef = CATALOG.casePacks[spec] || null;
-      } else {
-        packDef = spec;
-      }
-      if (!packDef) return null;
-      return packDef[sizeCode] != null ? packDef[sizeCode] : null;
-    }
-
-    // -----------------------------
-    // 2. BUILD UI
-    // -----------------------------
-
-    function initApp() {
-      const parkSelect = document.getElementById("parkSelect");
-      const availabilityStamp = document.getElementById("availabilityStamp");
-      const headerRow = document.getElementById("tableHeaderRow");
-      const tbody = document.getElementById("tableBody");
-      const clearBtn = document.getElementById("clearAllBtn");
-      const copyBtn = document.getElementById("copyBtn");
-      const copyStatus = document.getElementById("copyStatus");
-
-      // Park dropdown
-      CATALOG.parks.forEach(p => {
-        const opt = document.createElement("option");
-        opt.value = p.id;
-        opt.textContent = p.name;
-        parkSelect.appendChild(opt);
-      });
-
-      // Availability stamp
-      if (AVAILABILITY && AVAILABILITY.updatedAt) {
-        const d = new Date(AVAILABILITY.updatedAt);
-        const formatted = isNaN(d.getTime())
-          ? AVAILABILITY.updatedAt
-          : d.toLocaleDateString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric"
+            inputs.forEach(input => {
+                const qty = parseInt(input.value) || 0;
+                total += qty;
+                if (qty > 0) {
+                    hasQty = true;
+                    const size = input.dataset.size;
+                    const caseSize = size === 'ONESIZE' ? 'varies' : '40';
+                    const cases = caseSize === 'varies' ? '' : ` (${Math.ceil(qty / 40)} cases of 40)`;
+                    lines.push(`${size} x ${qty}${cases}`);
+                }
             });
-        availabilityStamp.innerHTML =
-          'Availability as of <strong>' + formatted + "</strong>";
-      } else {
-        availabilityStamp.textContent = "";
-      }
 
-      // Table header
-      headerRow.innerHTML = "";
-      const headers = ["Style", "Preview"].concat(SIZE_ORDER).concat("Total");
-      headers.forEach((h, idx) => {
-        const th = document.createElement("th");
-        th.textContent = h === "ONESIZE" ? "One-Size" : h;
-        if (idx === 0) th.classList.add("style-col");
-        if (SIZE_ORDER.includes(h)) th.classList.add("size-col");
-        if (h === "Total") th.classList.add("total-col");
-        headerRow.appendChild(th);
-      });
+            totalPairsEl.textContent = total;
+            stylesCountEl.textContent = hasQty ? 1 : 0;
 
-      // Body rows
-      tbody.innerHTML = "";
-      CATALOG.styles.forEach(style => {
-        const row = document.createElement("tr");
-        row.dataset.styleId = style.id;
-
-        // Style name
-        const nameTd = document.createElement("td");
-        nameTd.className = "style-name";
-        nameTd.textContent = style.name;
-        row.appendChild(nameTd);
-
-        // Image
-        const imgTd = document.createElement("td");
-        imgTd.className = "image-cell";
-        if (style.image) {
-          const img = document.createElement("img");
-          img.src = style.image;
-          img.alt = style.name;
-          img.loading = "lazy";
-          imgTd.appendChild(img);
-          const sm = document.createElement("small");
-          sm.textContent = style.id;
-          imgTd.appendChild(sm);
-        } else {
-          imgTd.textContent = "—";
+            if (total > 0) {
+                orderTextEl.textContent = `Altitude ${styleName}: ${lines.join(', ')}`;
+            } else {
+                orderTextEl.textContent = "No quantities entered yet.";
+            }
         }
-        row.appendChild(imgTd);
 
-        const availStyles = (AVAILABILITY && AVAILABILITY.styles) || {};
-        const styleAvail = availStyles[style.id] || {};
-        const stockStyle = (STOCK_ON_HAND && STOCK_ON_HAND[style.id]) || {};
+        inputs.forEach(input => input.addEventListener('input', updateSummary));
 
-        SIZE_ORDER.forEach(sizeCode => {
-          const td = document.createElement("td");
-          td.classList.add("size-col");
-
-          const allowedInCatalog = style.sizes.indexOf(sizeCode) !== -1;
-          const allowedByAvailability = !!styleAvail[sizeCode];
-
-          if (allowedInCatalog && allowedByAvailability) {
-            const input = document.createElement("input");
-            input.type = "number";
-            input.min = "0";
-            input.step = "1";
-            input.value = "0";
-            input.dataset.styleId = style.id;
-            input.dataset.size = sizeCode;
-
-            const pack = getCasePack(style.id, sizeCode);
-            if (pack) {
-              input.placeholder = String(pack);
-            }
-
-            input.addEventListener("input", handleInputChanged);
-
-            td.appendChild(input);
-
-            const packNote = document.createElement("div");
-            packNote.className = "case-note";
-
-            const inStock = stockStyle.hasOwnProperty(sizeCode)
-              ? stockStyle[sizeCode]
-              : null;
-
-            const bits = [];
-            if (pack) {
-              bits.push(`Case: <strong>${pack}</strong>`);
-            }
-            if (inStock === true) {
-              bits.push('<span class="stock-pill stock-ok">On hand</span>');
-            } else if (inStock === false) {
-              bits.push('<span class="stock-pill stock-none">None on hand</span>');
-            }
-
-            packNote.innerHTML = bits.join(" · ");
-            td.appendChild(packNote);
-          } else {
-            td.classList.add("disabled");
-            td.textContent = "";
-          }
-
-          row.appendChild(td);
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            inputs.forEach(input => input.value = 0);
+            updateSummary();
         });
 
-        const totalTd = document.createElement("td");
-        totalTd.classList.add("total-col", "style-total");
-        totalTd.textContent = "0";
-        row.appendChild(totalTd);
-
-        tbody.appendChild(row);
-      });
-
-      clearBtn.addEventListener("click", () => {
-        const inputs = tbody.querySelectorAll("input[type='number']");
-        inputs.forEach(input => { input.value = "0"; });
-        recompute();
-      });
-
-      parkSelect.addEventListener("change", recompute);
-
-      copyBtn.addEventListener("click", () => {
-        const ta = document.getElementById("orderText");
-        ta.select();
-        try {
-          const ok = document.execCommand("copy");
-          if (ok) {
-            copyStatus.textContent = "Copied!";
-          } else {
-            copyStatus.textContent = "Select and copy manually.";
-          }
-        } catch (e) {
-          copyStatus.textContent = "Select and copy manually.";
-        }
-        setTimeout(() => { copyStatus.textContent = ""; }, 1800);
-      });
-
-      recompute();
-
-      function handleInputChanged(e) {
-        const target = e.target;
-        if (!target) return;
-        const val = target.value;
-        if (val === "") return;
-        const num = Number(val);
-        if (!Number.isFinite(num) || num < 0) {
-          target.value = "0";
-        } else {
-          target.value = String(Math.floor(num));
-        }
-        recompute();
-      }
-    }
-
-    // -----------------------------
-    // 3. RECOMPUTE TOTALS + TEXT
-    // -----------------------------
-
-    function recompute() {
-      const tbody = document.getElementById("tableBody");
-      const totalPairsEl = document.getElementById("totalPairs");
-      const stylesWithQtyEl = document.getElementById("stylesWithQty");
-      const orderTextEl = document.getElementById("orderText");
-      const parkSelect = document.getElementById("parkSelect");
-
-      const inputs = tbody.querySelectorAll("input[type='number']");
-
-      const styleTotals = {};
-      const orders = {}; // { styleId: { sizeCode: qty } }
-
-      inputs.forEach(input => {
-        const styleId = input.dataset.styleId;
-        const size = input.dataset.size;
-        let qty = Number(input.value || "0");
-        if (!Number.isFinite(qty) || qty < 0) qty = 0;
-
-        if (!styleTotals[styleId]) {
-          styleTotals[styleId] = 0;
-        }
-        styleTotals[styleId] += qty;
-
-        if (qty > 0) {
-          if (!orders[styleId]) orders[styleId] = {};
-          orders[styleId][size] = qty;
-        }
-      });
-
-      // Update per-style totals in table
-      const rows = tbody.querySelectorAll("tr");
-      rows.forEach(row => {
-        const styleId = row.dataset.styleId;
-        const td = row.querySelector(".style-total");
-        const total = styleTotals[styleId] || 0;
-        if (td) td.textContent = String(total);
-      });
-
-      const totalPairs = Object.keys(styleTotals).reduce(
-        (sum, sid) => sum + (styleTotals[sid] || 0),
-        0
-      );
-      totalPairsEl.textContent = String(totalPairs);
-
-      const stylesWithQty = Object.keys(orders).length;
-      stylesWithQtyEl.textContent = String(stylesWithQty);
-
-      const parkId = parkSelect.value;
-      const parkName = parkId && PARK_MAP[parkId]
-        ? PARK_MAP[parkId].name
-        : "________";
-
-      // Build order text
-      const lines = [];
-      lines.push("Park: " + parkName);
-      lines.push("");
-
-      const styleIds = Object.keys(orders).sort();
-      styleIds.forEach(styleId => {
-        const style = STYLE_MAP[styleId];
-        const styleName = style ? style.name : styleId;
-        const entries = Object.entries(orders[styleId]).sort((a, b) => {
-          const ia = SIZE_ORDER.indexOf(a[0]);
-          const ib = SIZE_ORDER.indexOf(b[0]);
-          return ia - ib;
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            navigator.clipboard.writeText(orderTextEl.textContent).then(() => {
+                alert('Order text copied to clipboard!');
+            });
         });
 
-        const parts = entries.map(([size, qty]) => {
-          const pack = getCasePack(styleId, size);
-          if (pack) {
-            const cases = Math.ceil(qty / pack);
-            return (
-              size +
-              " x " +
-              qty +
-              " (" +
-              cases +
-              " case" +
-              (cases !== 1 ? "s" : "") +
-              " of " +
-              pack +
-              ")"
-            );
-          } else {
-            return size + " x " + qty;
-          }
-        });
-
-        lines.push(styleName + ": " + parts.join(", "));
-      });
-
-      if (styleIds.length > 0) {
-        lines.push("");
-      }
-      lines.push("Total pairs: " + totalPairs);
-
-      orderTextEl.value = lines.join("\n");
-    }
-
-    document.addEventListener("DOMContentLoaded", initApp);
-  </script>
+        // Initial update
+        updateSummary();
+    </script>
 </body>
 </html>
