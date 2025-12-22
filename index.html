@@ -15,14 +15,33 @@
         .total-badge { font-size: 1.2rem; }
         .order-summary { white-space: pre-wrap; font-family: monospace; }
         .sock-img { max-height: 150px; object-fit: contain; }
+        .size-col { text-align: center; }
+        .size-col .fw-bold { margin-bottom: 5px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Altitude — GM Sock Ordering</h1>
-        <p class="text-center lead mb-5">Select styles, enter quantities by size, see live totals, and copy/submit your full order.</p>
+        
+        <!-- Park Selector -->
+        <div class="row mb-4">
+            <div class="col-md-6 mx-auto">
+                <label for="park-select" class="form-label fw-bold">Select Your Park (required)</label>
+                <select class="form-select" id="park-select" required>
+                    <option value="" disabled selected>Choose park...</option>
+                    <option value="Appleton">Appleton</option>
+                    <option value="Gastonia">Gastonia</option>
+                    <option value="Lombard">Lombard</option>
+                    <option value="Pueblo">Pueblo</option>
+                    <option value="San Jose">San Jose</option>
+                    <option value="York">York</option>
+                </select>
+            </div>
+        </div>
+        
+        <p class="text-center lead mb-5">Enter quantities by size for each style. Live totals and order text update automatically.</p>
 
-        <!-- Style 1: Sapphire -->
+        <!-- Sapphire -->
         <div class="card style-card" data-style="Sapphire">
             <div class="card-header bg-primary text-white" data-bs-toggle="collapse" data-bs-target="#collapse-sapphire" style="cursor: pointer;">
                 <h3 class="mb-0">Sapphire</h3>
@@ -30,23 +49,22 @@
             <div id="collapse-sapphire" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://m.media-amazon.com/images/S/aplus-media/sc/cc36637f-e60c-4fb3-b175-b7cfe836a244.__CR0,0,970,600_PT0_SX970_V1___.jpg" alt="Sapphire Socks" class="img-fluid rounded sock-img">
+                        <img src="https://m.media-amazon.com/images/S/aplus-media/vc/4b8d634e-1c5a-4e9d-9c2d-6b0e4e6d8f0a.__CR0,0,600,400_PT0_SX600_V1___.jpg" alt="Sapphire Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 2: Bliss -->
+        <!-- Bliss -->
         <div class="card style-card" data-style="Bliss">
             <div class="card-header bg-info text-white" data-bs-toggle="collapse" data-bs-target="#collapse-bliss" style="cursor: pointer;">
                 <h3 class="mb-0">Bliss</h3>
@@ -54,23 +72,22 @@
             <div id="collapse-bliss" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://leapsandrebounds.com/cdn/shop/files/pink_tall_socks.png?height=500&v=1729112741" alt="Bliss Socks" class="img-fluid rounded sock-img">
+                        <img src="https://leapsandrebounds.com/cdn/shop/files/pink_tall_socks.png?v=1729112741&width=500" alt="Bliss Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 3: Onyx -->
+        <!-- Onyx -->
         <div class="card style-card" data-style="Onyx">
             <div class="card-header bg-dark text-white" data-bs-toggle="collapse" data-bs-target="#collapse-onyx" style="cursor: pointer;">
                 <h3 class="mb-0">Onyx</h3>
@@ -78,23 +95,22 @@
             <div id="collapse-onyx" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://leapsandrebounds.com/cdn/shop/files/eee2.png?height=500&v=1723010591" alt="Onyx Socks" class="img-fluid rounded sock-img">
+                        <img src="https://leapsandrebounds.com/cdn/shop/files/eee2.png?v=1723010591&width=500" alt="Onyx Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 4: Blaze -->
+        <!-- Blaze -->
         <div class="card style-card" data-style="Blaze">
             <div class="card-header bg-danger text-white" data-bs-toggle="collapse" data-bs-target="#collapse-blaze" style="cursor: pointer;">
                 <h3 class="mb-0">Blaze</h3>
@@ -105,20 +121,19 @@
                         <img src="https://maxairtrampolines.com/wp-content/uploads/2021/07/products-trampoline-socks.jpg" alt="Blaze Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 5: Pulse -->
+        <!-- Pulse -->
         <div class="card style-card" data-style="Pulse">
             <div class="card-header bg-success text-white" data-bs-toggle="collapse" data-bs-target="#collapse-pulse" style="cursor: pointer;">
                 <h3 class="mb-0">Pulse</h3>
@@ -126,23 +141,22 @@
             <div id="collapse-pulse" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://leapsandrebounds.com/cdn/shop/files/green_tall_socks.png?height=500&v=1729112735" alt="Pulse Socks" class="img-fluid rounded sock-img">
+                        <img src="https://leapsandrebounds.com/cdn/shop/files/green_tall_socks.png?v=1729112735&width=500" alt="Pulse Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 6: Leopard -->
+        <!-- Leopard -->
         <div class="card style-card" data-style="Leopard">
             <div class="card-header bg-warning text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-leopard" style="cursor: pointer;">
                 <h3 class="mb-0">Leopard</h3>
@@ -150,25 +164,24 @@
             <div id="collapse-leopard" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/9dd4388a-16f1-4b76-b1e9-a8fa37a481ce.__CR0,0,800,600_PT0_SX800_V1___.jpg" alt="Leopard Socks" class="img-fluid rounded sock-img">
+                        <img src="https://m.media-amazon.com/images/I/71n8t1rL4+L._AC_UY1000_.jpg" alt="Leopard Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 7: Tiger -->
+        <!-- Tiger -->
         <div class="card style-card" data-style="Tiger">
-            <div class="card-header bg-orange text-white" data-bs-toggle="collapse" data-bs-target="#collapse-tiger" style="cursor: pointer; background-color: #fd7e14;">
+            <div class="card-header text-white" style="background-color: #fd7e14;" data-bs-toggle="collapse" data-bs-target="#collapse-tiger" style="cursor: pointer;">
                 <h3 class="mb-0">Tiger</h3>
             </div>
             <div id="collapse-tiger" class="collapse show">
@@ -177,20 +190,19 @@
                         <img src="https://samuraiproducts.com/wp-content/uploads/2023/09/trampoline-New.gif" alt="Tiger Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 8: Blue-Black -->
+        <!-- Blue-Black -->
         <div class="card style-card" data-style="Blue-Black">
             <div class="card-header bg-secondary text-white" data-bs-toggle="collapse" data-bs-target="#collapse-blueblack" style="cursor: pointer;">
                 <h3 class="mb-0">Blue-Black</h3>
@@ -198,49 +210,47 @@
             <div id="collapse-blueblack" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://leapsandrebounds.com/cdn/shop/files/blue_tall_socks.png?height=500&v=1729112793" alt="Blue-Black Socks" class="img-fluid rounded sock-img">
+                        <img src="https://leapsandrebounds.com/cdn/shop/files/blue_tall_socks.png?v=1729112793&width=500" alt="Blue-Black Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 9: Skyblue -->
+        <!-- Skyblue -->
         <div class="card style-card" data-style="Skyblue">
-            <div class="card-header bg-light text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-skyblue" style="cursor: pointer; background-color: #0dcaf0;">
+            <div class="card-header text-white" style="background-color: #0dcaf0;" data-bs-toggle="collapse" data-bs-target="#collapse-skyblue" style="cursor: pointer;">
                 <h3 class="mb-0">Skyblue</h3>
             </div>
             <div id="collapse-skyblue" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://www.blueboxsocks.co.uk/s/cc_images/teaserbox_73375316.jpg?t=1553683886" alt="Skyblue Socks" class="img-fluid rounded sock-img">
+                        <img src="https://sinoknit.com/wp-content/uploads/2022/07/HS400470.png" alt="Skyblue Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 10: Purple -->
+        <!-- Purple -->
         <div class="card style-card" data-style="Purple">
-            <div class="card-header bg-purple text-white" data-bs-toggle="collapse" data-bs-target="#collapse-purple" style="cursor: pointer; background-color: #6f42c1;">
+            <div class="card-header text-white" style="background-color: #6f42c1;" data-bs-toggle="collapse" data-bs-target="#collapse-purple" style="cursor: pointer;">
                 <h3 class="mb-0">Purple</h3>
             </div>
             <div id="collapse-purple" class="collapse show">
@@ -249,44 +259,42 @@
                         <img src="https://i.ebayimg.com/images/g/Wg4AAOSwNHxl056t/s-l400.jpg" alt="Purple Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Style 11: Party Bag -->
+        <!-- Party Bag -->
         <div class="card style-card" data-style="Party Bag">
-            <div class="card-header bg-multicolor text-white" data-bs-toggle="collapse" data-bs-target="#collapse-partybag" style="cursor: pointer; background: linear-gradient(to right, #ff758c, #ff7eb3);">
+            <div class="card-header text-white" style="background: linear-gradient(to right, #ff758c, #ff7eb3);" data-bs-toggle="collapse" data-bs-target="#collapse-partybag" style="cursor: pointer;">
                 <h3 class="mb-0">Party Bag</h3>
             </div>
             <div id="collapse-partybag" class="collapse show">
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="https://m.media-amazon.com/images/I/71S4du5bgJL.jpg_BO30,255,255,255_UF900,850_SR1910,1000,0,C_QL100_.jpg" alt="Party Bag Socks" class="img-fluid rounded sock-img">
+                        <img src="https://m.media-amazon.com/images/I/71S4du5bgJL._AC_UF1000,1000_QL80_.jpg" alt="Party Bag Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">I</label><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">T</label><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">S</label><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">M</label><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">L</label><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">XXL</label><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
-                        <div class="col-4 col-sm-3 col-md-2"><label class="form-label fw-bold">ONESIZE</label><input type="number" min="0" value="0" class="form-control size-input" data-size="ONESIZE"><small class="text-muted">Case: varies</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">I</div><input type="number" min="0" value="0" class="form-control size-input" data-size="I"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">T</div><input type="number" min="0" value="0" class="form-control size-input" data-size="T"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">S</div><input type="number" min="0" value="0" class="form-control size-input" data-size="S"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">M</div><input type="number" min="0" value="0" class="form-control size-input" data-size="M"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">L</div><input type="number" min="0" value="0" class="form-control size-input" data-size="L"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XL"><small class="text-muted">Case: 40</small></div>
+                        <div class="col-4 col-sm-3 col-md-2 size-col"><div class="fw-bold">XXL</div><input type="number" min="0" value="0" class="form-control size-input" data-size="XXL"><small class="text-muted">Case: 40</small></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Totals Section -->
+        <!-- Order Summary -->
         <div class="card mb-4">
             <div class="card-header bg-success text-white">
                 <h3 class="mb-0">Order Summary</h3>
@@ -295,7 +303,7 @@
                 <p>Total pairs: <span class="badge bg-light text-dark total-badge" id="total-pairs">0</span></p>
                 <p>Styles with qty > 0: <span class="badge bg-light text-dark total-badge" id="styles-count">0</span></p>
                 
-                <pre class="order-summary bg-light p-3 rounded" id="order-text">Your order will appear here...</pre>
+                <pre class="order-summary bg-light p-3 rounded" id="order-text">Select a park and enter quantities...</pre>
                 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-warning me-md-2" id="clear-btn">⟲ Clear all quantities</button>
@@ -310,11 +318,20 @@
     <script>
         const styleCards = document.querySelectorAll('.style-card');
         const inputs = document.querySelectorAll('.size-input');
+        const parkSelect = document.getElementById('park-select');
         const totalPairsEl = document.getElementById('total-pairs');
         const stylesCountEl = document.getElementById('styles-count');
         const orderTextEl = document.getElementById('order-text');
 
         function updateSummary() {
+            const park = parkSelect.value;
+            if (!park) {
+                orderTextEl.textContent = 'Please select a park first.';
+                totalPairsEl.textContent = 0;
+                stylesCountEl.textContent = 0;
+                return;
+            }
+
             let totalPairs = 0;
             let activeStyles = 0;
             let orderLines = [];
@@ -329,7 +346,7 @@
                     styleTotal += qty;
                     if (qty > 0) {
                         const size = input.dataset.size;
-                        const cases = size === 'ONESIZE' ? '' : ` (${Math.ceil(qty / 40)} cases of 40)`;
+                        const cases = ` (${Math.ceil(qty / 40)} cases of 40)`;
                         sizeLines.push(`${size} x ${qty}${cases}`);
                     }
                 });
@@ -337,7 +354,7 @@
                 if (styleTotal > 0) {
                     activeStyles++;
                     totalPairs += styleTotal;
-                    orderLines.push(`Altitude ${styleName}: ${sizeLines.join(', ')}`);
+                    orderLines.push(`Altitude ${park} – ${styleName}: ${sizeLines.join(', ')}`);
                 }
             });
 
@@ -347,6 +364,7 @@
         }
 
         inputs.forEach(input => input.addEventListener('input', updateSummary));
+        parkSelect.addEventListener('change', updateSummary);
 
         document.getElementById('clear-btn').addEventListener('click', () => {
             inputs.forEach(input => input.value = 0);
@@ -354,6 +372,10 @@
         });
 
         document.getElementById('copy-btn').addEventListener('click', () => {
+            if (!parkSelect.value) {
+                alert('Please select a park first!');
+                return;
+            }
             navigator.clipboard.writeText(orderTextEl.textContent).then(() => {
                 alert('Order text copied to clipboard!');
             });
