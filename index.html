@@ -214,7 +214,7 @@
             </div>
         </div>
 
-        <!-- Blaze (I–L only) -->
+        <!-- Blaze (I–L, T sold out) -->
         <div class="card style-card" data-style="Blaze">
             <div class="card-header bg-danger text-white" data-bs-toggle="collapse" data-bs-target="#collapse-blaze" style="cursor: pointer;">
                 <h3 class="mb-0">Blaze</h3>
@@ -223,47 +223,6 @@
                 <div class="card-body">
                     <div class="text-center mb-3">
                         <img src="https://alma-fit.com/cdn/shop/files/blaze-w-badge.webp?v=1765454964&width=1000" alt="Blaze Socks" class="img-fluid rounded sock-img">
-                    </div>
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">I</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="I" data-case="360">
-                            <small class="text-muted mt-1">Case: 360</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">T</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="T" data-case="240">
-                            <small class="text-muted mt-1">Case: 240</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">S</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="S" data-case="220">
-                            <small class="text-muted mt-1">Case: 220</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">M</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="M" data-case="200">
-                            <small class="text-muted mt-1">Case: 200</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">L</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="L" data-case="180">
-                            <small class="text-muted mt-1">Case: 180</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pulse (I–L, T sold out) -->
-        <div class="card style-card" data-style="Pulse">
-            <div class="card-header bg-success text-white" data-bs-toggle="collapse" data-bs-target="#collapse-pulse" style="cursor: pointer;">
-                <h3 class="mb-0">Pulse</h3>
-            </div>
-            <div id="collapse-pulse" class="collapse show">
-                <div class="card-body">
-                    <div class="text-center mb-3">
-                        <img src="https://alma-fit.com/cdn/shop/files/MIKC9268.webp?v=1758052618&width=1000" alt="Pulse Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
                         <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
@@ -296,7 +255,48 @@
             </div>
         </div>
 
-        <!-- Leopard -->
+        <!-- Pulse (I–L, T-M sold out) -->
+        <div class="card style-card" data-style="Pulse">
+            <div class="card-header bg-success text-white" data-bs-toggle="collapse" data-bs-target="#collapse-pulse" style="cursor: pointer;">
+                <h3 class="mb-0">Pulse</h3>
+            </div>
+            <div id="collapse-pulse" class="collapse show">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <img src="https://alma-fit.com/cdn/shop/files/MIKC9268.webp?v=1758052618&width=1000" alt="Pulse Socks" class="img-fluid rounded sock-img">
+                    </div>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">I</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="I" data-case="360">
+                            <small class="text-muted mt-1">Case: 360</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group sold-out">
+                            <div class="fw-bold">T</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="T" data-case="240" disabled>
+                            <small class="text-muted mt-1">Sold Out</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">S</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="S" data-case="220">
+                            <small class="text-muted mt-1">Case: 220</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group sold-out">
+                            <div class="fw-bold">M</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="M" data-case="200" disabled>
+                            <small class="text-muted mt-1">Sold Out</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">L</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="L" data-case="180">
+                            <small class="text-muted mt-1">Case: 180</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leopard (I–XXL, I sold out) -->
         <div class="card style-card" data-style="Leopard">
             <div class="card-header bg-warning text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-leopard" style="cursor: pointer;">
                 <h3 class="mb-0">Leopard</h3>
@@ -305,108 +305,6 @@
                 <div class="card-body">
                     <div class="text-center mb-3">
                         <img src="https://alma-fit.com/cdn/shop/files/MIKC7989.jpg?v=1758530349&width=1000" alt="Leopard Socks" class="img-fluid rounded sock-img">
-                    </div>
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">I</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="I" data-case="360">
-                            <small class="text-muted mt-1">Case: 360</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">T</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="T" data-case="240">
-                            <small class="text-muted mt-1">Case: 240</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">S</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="S" data-case="220">
-                            <small class="text-muted mt-1">Case: 220</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">M</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="M" data-case="200">
-                            <small class="text-muted mt-1">Case: 200</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">L</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="L" data-case="180">
-                            <small class="text-muted mt-1">Case: 180</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">XL</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XL" data-case="170">
-                            <small class="text-muted mt-1">Case: 170</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">XXL</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XXL" data-case="170">
-                            <small class="text-muted mt-1">Case: 170</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tiger -->
-        <div class="card style-card" data-style="Tiger">
-            <div class="card-header text-white" style="background-color: #fd7e14;" data-bs-toggle="collapse" data-bs-target="#collapse-tiger" style="cursor: pointer;">
-                <h3 class="mb-0">Tiger</h3>
-            </div>
-            <div id="collapse-tiger" class="collapse show">
-                <div class="card-body">
-                    <div class="text-center mb-3">
-                        <img src="https://alma-fit.com/cdn/shop/files/tiger-w-badge.webp?v=1765454925&width=1000" alt="Tiger Socks" class="img-fluid rounded sock-img">
-                    </div>
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">I</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="I" data-case="360">
-                            <small class="text-muted mt-1">Case: 360</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">T</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="T" data-case="240">
-                            <small class="text-muted mt-1">Case: 240</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">S</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="S" data-case="220">
-                            <small class="text-muted mt-1">Case: 220</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">M</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="M" data-case="200">
-                            <small class="text-muted mt-1">Case: 200</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">L</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="L" data-case="180">
-                            <small class="text-muted mt-1">Case: 180</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">XL</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XL" data-case="170">
-                            <small class="text-muted mt-1">Case: 170</small>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
-                            <div class="fw-bold">XXL</div>
-                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XXL" data-case="170">
-                            <small class="text-muted mt-1">Case: 170</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Blue-Black (I sold out) -->
-        <div class="card style-card" data-style="Blue-Black">
-            <div class="card-header bg-secondary text-white" data-bs-toggle="collapse" data-bs-target="#collapse-blueblack" style="cursor: pointer;">
-                <h3 class="mb-0">Blue-Black</h3>
-            </div>
-            <div id="collapse-blueblack" class="collapse show">
-                <div class="card-body">
-                    <div class="text-center mb-3">
-                        <img src="https://alma-fit.com/cdn/shop/files/0002_064.jpg?v=1740419450&width=1000" alt="Blue-Black Socks" class="img-fluid rounded sock-img">
                     </div>
                     <div class="row g-3 justify-content-center">
                         <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group sold-out">
@@ -438,6 +336,108 @@
                             <div class="fw-bold">XL</div>
                             <input type="number" min="0" value="0" class="form-control size-input" data-size="XL" data-case="170">
                             <small class="text-muted mt-1">Case: 170</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">XXL</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XXL" data-case="170">
+                            <small class="text-muted mt-1">Case: 170</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tiger (I–XXL, I sold out) -->
+        <div class="card style-card" data-style="Tiger">
+            <div class="card-header text-white" style="background-color: #fd7e14;" data-bs-toggle="collapse" data-bs-target="#collapse-tiger" style="cursor: pointer;">
+                <h3 class="mb-0">Tiger</h3>
+            </div>
+            <div id="collapse-tiger" class="collapse show">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <img src="https://alma-fit.com/cdn/shop/files/tiger-w-badge.webp?v=1765454925&width=1000" alt="Tiger Socks" class="img-fluid rounded sock-img">
+                    </div>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group" sold-out>
+                            <div class="fw-bold">I</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="I" data-case="360" disabled>>
+                            <small class="text-muted mt-1">Sold Out</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">T</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="T" data-case="240">
+                            <small class="text-muted mt-1">Case: 240</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">S</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="S" data-case="220">
+                            <small class="text-muted mt-1">Case: 220</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">M</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="M" data-case="200">
+                            <small class="text-muted mt-1">Case: 200</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">L</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="L" data-case="180">
+                            <small class="text-muted mt-1">Case: 180</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">XL</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XL" data-case="170">
+                            <small class="text-muted mt-1">Case: 170</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">XXL</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XXL" data-case="170">
+                            <small class="text-muted mt-1">Case: 170</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blue-Black (I-M-XL sold out) -->
+        <div class="card style-card" data-style="Blue-Black">
+            <div class="card-header bg-secondary text-white" data-bs-toggle="collapse" data-bs-target="#collapse-blueblack" style="cursor: pointer;">
+                <h3 class="mb-0">Blue-Black</h3>
+            </div>
+            <div id="collapse-blueblack" class="collapse show">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <img src="https://alma-fit.com/cdn/shop/files/0002_064.jpg?v=1740419450&width=1000" alt="Blue-Black Socks" class="img-fluid rounded sock-img">
+                    </div>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group sold-out">
+                            <div class="fw-bold">I</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="I" data-case="360" disabled>
+                            <small class="text-muted mt-1">Sold Out</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">T</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="T" data-case="240">
+                            <small class="text-muted mt-1">Case: 240</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">S</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="S" data-case="220">
+                            <small class="text-muted mt-1">Case: 220</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group sold-out">
+                            <div class="fw-bold">M</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="M" data-case="200" disabled>
+                            <small class="text-muted mt-1">Sold Out</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
+                            <div class="fw-bold">L</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="L" data-case="180">
+                            <small class="text-muted mt-1">Case: 180</small>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group sold-out">
+                            <div class="fw-bold">XL</div>
+                            <input type="number" min="0" value="0" class="form-control size-input" data-size="XL" data-case="170" disabled>
+                            <small class="text-muted mt-1">Sold Out</small>
                         </div>
                         <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center size-group">
                             <div class="fw-bold">XXL</div>
