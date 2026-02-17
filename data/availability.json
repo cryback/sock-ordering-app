@@ -1,16 +1,80 @@
 {
-  "updatedAt": "2025-10-15T00:00:00Z",
+  "updatedAt": "2026-02-17T06:50:42Z",
   "styles": {
-    "sapphire": { "I": true, "T": true, "S": true, "M": true, "L": true, "XL": true, "XXL": true },
-    "bliss":    { "I": true, "T": true,  "S": true,  "M": true,  "L": true, "XL": true, "XXL": true },
-    "onyx":     { "I": true, "T": true,  "S": true,  "M": true,  "L": true, "XL": true, "XXL": true },
-    "blaze":	{ "I": true, "T": false,  "S": true,  "M": true,  "L": true, "XL": false, "XXL": false },
-    "pulse":	{ "I": true, "T": false,  "S": true,  "M": false,  "L": true, "XL": false, "XXL": false },
-    "leopard":  { "I": false, "T": true,  "S": true,  "M": true,  "L": true, "XL": true, "XXL": true },
-    "tiger":    { "I": false, "T": true,  "S": true,  "M": true,  "L": true, "XL": true, "XXL": true },
-    "blueblack":{ "I": false, "T": true,  "S": true,  "M": false,  "L": true, "XL": false, "XXL": true },
-    "skyblue":  { "T": true, "S": true },
-    "purple":   { "M": false },
-    "partybag": { "ONESIZE": true }
+    "pulse": {
+      "I": true,
+      "T": false,
+      "S": true,
+      "M": false,
+      "L": true
+    },
+    "blaze": {
+      "I": true,
+      "T": false,
+      "S": false,
+      "M": true,
+      "L": false
+    },
+    "sapphire": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "bliss": {
+      "I": true,
+      "T": false,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "onyx": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": false,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "leopard": {
+      "I": false,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "tiger": {
+      "I": false,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "blueblack": {
+      "I": false,
+      "T": false,
+      "S": true,
+      "M": false,
+      "L": false,
+      "XL": false,
+      "XXL": true
+    },
+    "skyblue": {
+      "T": true,
+      "S": true
+    },
+    "partybag": {
+      "ONESIZE": true
+    }
   }
 }
