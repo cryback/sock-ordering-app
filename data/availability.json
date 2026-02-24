@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-02-17T06:50:42Z",
+  "updatedAt": "2026-02-24T11:01:08Z",
   "styles": {
     "pulse": {
       "I": true,
@@ -27,7 +27,7 @@
     "bliss": {
       "I": true,
       "T": false,
-      "S": true,
+      "S": false,
       "M": true,
       "L": true,
       "XL": true,
