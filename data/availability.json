@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-02-26T11:01:14Z",
+  "updatedAt": "2026-03-02T11:01:30Z",
   "styles": {
     "pulse": {
       "I": true,
@@ -8,22 +8,6 @@
       "M": true,
       "L": true
     },
-    "blaze": {
-      "I": true,
-      "T": false,
-      "S": false,
-      "M": true,
-      "L": false
-    },
-    "sapphire": {
-      "I": true,
-      "T": true,
-      "S": true,
-      "M": true,
-      "L": true,
-      "XL": true,
-      "XXL": true
-    },
     "bliss": {
       "I": false,
       "T": false,
@@ -31,15 +15,6 @@
       "M": true,
       "L": true,
       "XL": true,
-      "XXL": true
-    },
-    "onyx": {
-      "I": true,
-      "T": true,
-      "S": true,
-      "M": true,
-      "L": true,
-      "XL": false,
       "XXL": true
     },
     "leopard": {
