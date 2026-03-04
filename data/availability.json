@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-03-03T11:01:25Z",
+  "updatedAt": "2026-03-04T11:01:07Z",
   "styles": {
     "pulse": {
-      "I": true,
-      "T": true,
+      "I": false,
+      "T": false,
       "S": true,
-      "M": true,
+      "M": false,
       "L": true
     },
     "blaze": {
       "I": true,
       "T": false,
       "S": false,
-      "M": true,
+      "M": false,
       "L": false
     },
     "sapphire": {
@@ -24,36 +24,9 @@
       "XL": true,
       "XXL": true
     },
-    "bliss": {
-      "I": false,
-      "T": false,
-      "S": false,
-      "M": true,
-      "L": true,
-      "XL": true,
-      "XXL": true
-    },
-    "onyx": {
-      "I": true,
-      "T": true,
-      "S": true,
-      "M": true,
-      "L": true,
-      "XL": false,
-      "XXL": true
-    },
-    "leopard": {
-      "I": true,
-      "T": true,
-      "S": true,
-      "M": true,
-      "L": true,
-      "XL": true,
-      "XXL": true
-    },
     "tiger": {
       "I": true,
-      "T": true,
+      "T": false,
       "S": true,
       "M": true,
       "L": true,
