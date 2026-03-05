@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-04T11:01:07Z",
+  "updatedAt": "2026-03-05T11:01:43Z",
   "styles": {
     "pulse": {
       "I": false,
@@ -16,6 +16,24 @@
       "L": false
     },
     "sapphire": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": true,
+      "L": true,
+      "XL": true,
+      "XXL": true
+    },
+    "bliss": {
+      "I": false,
+      "T": false,
+      "S": false,
+      "M": true,
+      "L": true,
+      "XL": false,
+      "XXL": true
+    },
+    "leopard": {
       "I": true,
       "T": true,
       "S": true,
