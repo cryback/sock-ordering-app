@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-03-06T14:11:17Z",
+  "updatedAt": "2026-03-10T13:35:06Z",
   "styles": {
     "pulse": {
       "I": false,
       "T": false,
-      "S": true,
+      "S": false,
       "M": false,
       "L": true
     },
