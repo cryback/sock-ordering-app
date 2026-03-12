@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-10T13:35:06Z",
+  "updatedAt": "2026-03-12T13:42:16Z",
   "styles": {
     "pulse": {
       "I": false,
@@ -52,7 +52,7 @@
       "XXL": true
     },
     "tiger": {
-      "I": true,
+      "I": false,
       "T": false,
       "S": true,
       "M": true,
