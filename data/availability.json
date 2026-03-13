@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-13T10:01:22Z",
+  "updatedAt": "2026-03-13T14:13:29Z",
   "styles": {
     "pulse": {
       "I": false,
@@ -29,6 +29,15 @@
       "T": false,
       "S": false,
       "M": true,
+      "L": true,
+      "XL": false,
+      "XXL": true
+    },
+    "onyx": {
+      "I": true,
+      "T": true,
+      "S": true,
+      "M": false,
       "L": true,
       "XL": false,
       "XXL": true
